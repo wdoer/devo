@@ -1,17 +1,23 @@
-<template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
-</template>
+<script setup>
+import { RouterView, useRoute } from "vue-router";
+import { NConfigProvider } from "naive-ui";
 
-<style lang="stylus">
-#app
-  font-family Avenir, Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
-  margin-top 60px
-</style>
+const route = useRoute();
+const themeOverrides = {
+  common: {
+    primaryColor: "#00000033",
+  },
+};
+</script>
+
+<template>
+  <n-config-provider
+    :theme-overrides="themeOverrides"
+    :class="`${route.name}__wrapper`"
+    tag="main"
+  >
+    <n-message-provider placement="top-right">
+      <RouterView />
+    </n-message-provider>
+  </n-config-provider>
+</template>
